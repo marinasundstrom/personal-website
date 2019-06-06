@@ -1,0 +1,25 @@
+﻿@inject IUriHelper UriHelper
+
+
+<p>Share this post:</p>
+
+<div class="share">
+    <a href="https://twitter.com/share?url=@Uri.EscapeDataString(url)" target="_blank"><i class="fab fa-twitter fa-2x" /></a>
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=@url&title=@Uri.EscapeDataString(Title)&summary=@Uri.EscapeDataString(Summary)" target="_blank"><i class="fab fa-linkedin fa-2x" /></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=@Uri.EscapeDataString(url)" target="_blank"><i class="fab fa-facebook fa-2x" /></a>
+</div>
+
+@functions {
+    string url;
+
+    [Parameter]
+    string Title { get; set; }
+
+    [Parameter]
+    string Summary { get; set; }
+
+    protected override void OnInit()
+    {
+        url = UriHelper.GetAbsoluteUri();
+    }
+}

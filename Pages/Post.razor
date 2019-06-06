@@ -1,0 +1,60 @@
+﻿@page "/{slug}"
+@page "/{year:int}/{month:int}/{day:int}/{slug}"
+
+@using PersonalSite.Services
+@using PersonalSite.Extensions
+@inject IConfigurationService ConfigurationService
+@inject IContentParser ContentParser
+@inject Browser Browser
+@inject Site Site
+
+@if (isLoading)
+{
+<Card>
+    <Loader></Loader>
+</Card>
+}
+else
+{
+<Card>
+    <h1>@post.Title</h1>
+    <h5>@post.Date.ToLocalTime()</h5>
+    @if (post.Image != null)
+    {
+        <img class="fakeimg" style="height:200px;" src="@post.Image">
+    }
+    <MarkdownView Content="@post.Content"></MarkdownView>
+
+    <ShareButtons Title="@post.Title" Summary=""></ShareButtons>
+</Card>
+}
+
+@functions {
+    ContentPage post = null;
+    bool isLoading = true;
+
+    [Parameter]
+    private int? Year { get; set; }
+
+    [Parameter]
+    private int? Month { get; set; }
+
+    [Parameter]
+    private int? Day { get; set; }
+
+    [Parameter]
+    private string Slug { get; set; }
+
+    protected override async Task OnInitAsync()
+    {
+        await base.OnInitAsync();
+
+        post = await Site.GetPostAsync(Year == null ? Slug : $"{Year}-{Month.ToString().PadLeft(2, '0')}-{Day.ToString().PadLeft(2, '0')}-{Slug}");
+
+        var configuration = await ConfigurationService.GetConfigurationAsync();
+
+        await Browser.SetDocumentTitleAsync($"{post.Title} - {configuration.Title}");
+
+        isLoading = false;
+    }
+}

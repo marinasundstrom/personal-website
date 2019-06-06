@@ -1,0 +1,21 @@
+﻿@using PersonalSite.Services
+
+@if (Posts?.Count() > 0)
+{
+    <CardList Items="@Posts" Context="post">
+        <ItemTemplate>
+            <PostPreview Post="@post"></PostPreview>
+        </ItemTemplate>
+    </CardList>
+}
+else
+{
+    <Card>
+        <h2>No posts :(</h2>
+    </Card>
+}
+
+@functions {
+    [Parameter]
+    private IEnumerable<ContentPage> Posts { get; set; }
+}

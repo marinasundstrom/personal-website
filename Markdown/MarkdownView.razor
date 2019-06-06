@@ -1,0 +1,13 @@
+﻿@inherits MarkdownModel
+@inject Highlight Highlight
+
+@HtmlContent
+
+@functions
+{
+    protected async override Task OnAfterRenderAsync()
+    {
+        await base.OnAfterRenderAsync();
+        await Highlight.InitAsync();
+    }
+}

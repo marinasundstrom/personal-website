@@ -1,0 +1,54 @@
+@inherits LayoutComponentBase
+@using  PersonalSite.Services
+@inject IConfigurationService ConfigurationService
+@inject PersonalSite.Extensions.Browser  Browser
+
+<button onclick="@OnScrollToTopClick" id="scrollTopButton" class="btn" title="Go to top"><i class="fa fa-arrow-up"></i></button>
+
+<NavBar>
+    <NavLink href="" Match="NavLinkMatch.All"><i class="fa fa-home"></i> Home</NavLink>
+    <DropDown Text="Blazor Samples">
+        <NavLink href="counter">Counter</NavLink>
+        <NavLink href="fetchdata">Fetch Data</NavLink>
+    </DropDown>
+</NavBar>
+
+<div class="header">
+    <a href="/"><h1>@configuration?.Title</h1></a>
+    <p>@configuration?.Subtitle</p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="leftcolumn">
+            @Body
+        </div>
+        <div class="rightcolumn">
+            <AboutMeCard></AboutMeCard>
+            <SocialCard></SocialCard>
+            @*<PopularPostsCard></PopularPostsCard>*@
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <span>Copyright &copy; Robert Sundstr&ouml;m @DateTime.Now.Year</span>
+    <div>
+        <span>Powered by <a href="https://blazor.net/">Blazor</a> | Hosted by <a href="https://www.github.com/pages">GitHub Pages</a></span>
+    </div>
+</div>
+
+@functions {
+    Configuration configuration;
+
+    protected override async Task OnInitAsync()
+    {
+        configuration = await ConfigurationService.GetConfigurationAsync();
+        await base.OnInitAsync();
+    }
+
+    private void OnScrollToTopClick(UIMouseEventArgs ev)
+    {
+        Browser.TopFunction();
+    }
+}

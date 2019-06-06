@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "style": "expanded",
+        "sourceMap": true,
+        "sourceDir": "Content/scss",
+        "outDir": "wwwroot/css"
+    },
+    "files": [
+        "site.scss"
+    ]
+}

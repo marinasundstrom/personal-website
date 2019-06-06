@@ -1,0 +1,16 @@
+﻿{
+  "compilerOptions": {
+    "module": "none",
+    "lib": [ "dom", "esnext" ],
+    "noImplicitAny": true,
+    "outDir": "wwwroot/js",
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "rootDir": "Content/ts",
+    "sourceMap": true
+  },
+  "include": [
+    "Content/ts/**/*"
+  ],
+  "compileOnSave": true
+}

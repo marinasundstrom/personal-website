@@ -1,0 +1,16 @@
+﻿@typeparam TItem
+
+@foreach (var post in Items)
+{
+    <Card>
+        @ItemTemplate(post)
+    </Card>
+}
+
+@functions {
+    [Parameter]
+    private IEnumerable<TItem> Items { get; set; }
+
+    [Parameter]
+    private RenderFragment<TItem> ItemTemplate { get; set; }
+}
