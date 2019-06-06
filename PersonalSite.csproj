@@ -21,6 +21,7 @@
     <PackageReference Include="W3.UI" Version="0.1.0-*" />
     <PackageReference Include="HtmlSanitizer" Version="5.0.215-beta" />
     <PackageReference Include="Markdig" Version="0.17.0" />
+    <PackageReference Include="SassTask" Version="0.1.0-*" />
   </ItemGroup>
 
 </Project>
