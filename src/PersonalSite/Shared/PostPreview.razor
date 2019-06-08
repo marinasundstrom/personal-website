@@ -1,7 +1,7 @@
 ﻿@using BlogEngine.Content
 
 <h1><a href="@GetUrlFromFullSlug(Post.Id)">@Post.Title</a></h1>
-<h5>@Post.Date.ToLocalTime()</h5>
+<h5>@Post.Date.ToLocalTime().ToShortDateString()</h5>
 @if (Post.Image != null)
 {
     <img class="fakeimg" style="height:200px;" src="@Post.Image">

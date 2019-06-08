@@ -18,7 +18,7 @@ else
 {
 <Card>
     <h1>@post.Title</h1>
-    <h5>@post.Date.ToLocalTime()</h5>
+    <h5>@post.Date.ToLocalTime().ToShortDateString()</h5>
     @if (post.Image != null)
     {
         <img class="fakeimg" style="height:200px;" src="@post.Image">

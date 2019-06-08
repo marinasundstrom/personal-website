@@ -46,4 +46,10 @@ else
             isLoading = false;
         }
     }
+
+    protected async override Task OnAfterRenderAsync()
+    {
+        await base.OnAfterRenderAsync();
+        await Browser.TopFunction();
+    }
 }
