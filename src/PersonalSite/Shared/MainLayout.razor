@@ -48,8 +48,8 @@
     {
         await ConfigurationManager.LoadConfigurationAsync();
         configuration = ConfigurationManager.Configuration;
-        title = configuration.GetValue<string>("title");
-        subtitle = configuration.GetValue<string>("subtitle");
+        title = configuration.GetValue<string>("Title");
+        subtitle = configuration.GetValue<string>("Subtitle");
         await base.OnInitAsync();
     }
 
