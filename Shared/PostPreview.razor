@@ -1,14 +1,14 @@
 ﻿@using PersonalSite.Services
 
-<h1><a href="/@GetUrlFromFullSlug(Post.Slug)">@Post.Title</a></h1>
-<h5>@Post.Date.ToLocalTime()</h5>
-@if (Post.Image != null)
+<h1><a href="/@GetUrlFromFullSlug(Post.FrontMatter.Slug)">@Post.FrontMatter.Title</a></h1>
+<h5>@Post.FrontMatter.Date.ToLocalTime()</h5>
+@if (Post.FrontMatter.Image != null)
 {
-    <img class="fakeimg" style="height:200px;" src="@Post.Image">
+    <img class="fakeimg" style="height:200px;" src="@Post.FrontMatter.Image">
 }
 <MarkdownView Truncate="true" Content="@Post.Content"></MarkdownView>
 
-<a class="btn gray" href="/@GetUrlFromFullSlug(Post.Slug)">Read more</a>
+<a class="btn gray" href="/@GetUrlFromFullSlug(Post.FrontMatter.Slug)">Read more</a>
 
 @functions {
     [Parameter]

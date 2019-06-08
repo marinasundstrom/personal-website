@@ -11,6 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <BlazorLinkerDescriptor Include="Linker.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.0.0-preview5-19227-01" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="3.0.0-preview5-19227-01" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.DevServer" Version="3.0.0-preview5-19227-01" PrivateAssets="all" />
@@ -22,6 +26,7 @@
     <PackageReference Include="HtmlSanitizer" Version="5.0.215-beta" />
     <PackageReference Include="Markdig" Version="0.17.0" />
     <PackageReference Include="SassTask" Version="0.1.0-*" />
+    <PackageReference Include="YamlDotNet" Version="6.1.1" />
   </ItemGroup>
 
 </Project>

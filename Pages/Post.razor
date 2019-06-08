@@ -17,15 +17,15 @@
 else
 {
 <Card>
-    <h1>@post.Title</h1>
-    <h5>@post.Date.ToLocalTime()</h5>
-    @if (post.Image != null)
+    <h1>@post.FrontMatter.Title</h1>
+    <h5>@post.FrontMatter.Date.ToLocalTime()</h5>
+    @if (post.FrontMatter.Image != null)
     {
-        <img class="fakeimg" style="height:200px;" src="@post.Image">
+        <img class="fakeimg" style="height:200px;" src="@post.FrontMatter.Image">
     }
     <MarkdownView Content="@post.Content"></MarkdownView>
 
-    <ShareButtons Title="@post.Title" Summary=""></ShareButtons>
+    <ShareButtons Title="@post.FrontMatter.Title" Summary=""></ShareButtons>
 </Card>
 }
 
@@ -53,7 +53,7 @@ else
 
         var configuration = await ConfigurationService.GetConfigurationAsync();
 
-        await Browser.SetDocumentTitleAsync($"{post.Title} - {configuration.Title}");
+        await Browser.SetDocumentTitleAsync($"{post.FrontMatter.Title} - {configuration.Title}");
 
         isLoading = false;
     }

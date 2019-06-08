@@ -35,12 +35,12 @@ namespace PersonalSite.Services
                 await GetPostAsync(file.name.Replace(".md", ""), false);
             }
 
-            Posts = Posts.OrderByDescending(p => p.Date).ToList();
+            Posts = Posts.OrderByDescending(p => p.FrontMatter.Date).ToList();
         }
 
         public async Task<ContentPage> GetPostAsync(string slug, bool sort = true)
         {
-            var post = Posts.FirstOrDefault(x => x.Slug == slug);
+            var post = Posts.FirstOrDefault(x => x.FrontMatter.Slug == slug);
             if (post == null)
             {
                 var fileContent = await gitHubClient.GetRawContentAsync($"posts/{slug}.md");
@@ -48,7 +48,7 @@ namespace PersonalSite.Services
                 Posts.Add(post);
                 if (sort)
                 {
-                    Posts = Posts.OrderByDescending(p => p.Date).ToList();
+                    Posts = Posts.OrderByDescending(p => p.FrontMatter.Date).ToList();
                 }
             }
             return post;

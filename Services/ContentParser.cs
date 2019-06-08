@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace PersonalSite.Services
 {
@@ -9,9 +12,9 @@ namespace PersonalSite.Services
     {
         public ContentPage ParseContent(string content, string slug = null)
         {
-            IReadOnlyDictionary<string, string> attributes = null;
+            MatchCollection matches = Regex.Matches(content, "^---+$", RegexOptions.Multiline);
 
-            MatchCollection matches = Regex.Matches(content, "---", RegexOptions.Singleline);
+            FrontMatter frontMatter = null;
 
             if (matches.Count >= 2)
             {
@@ -21,24 +24,43 @@ namespace PersonalSite.Services
                 if (first.Captures[0].Index == 0)
                 {
                     string info = content.Substring(first.Captures[0].Index + first.Captures[0].Length, second.Captures[0].Index - first.Captures[0].Length);
-                    attributes = ParseAttributes(info);
+
+                    var input = new StringReader(info);
+
+                    var deserializer = new DeserializerBuilder()
+                        .WithNamingConvention(new CamelCaseNamingConvention())
+                        .Build();
+
+                    frontMatter = deserializer.Deserialize<FrontMatter>(input);
+
                 }
                 content = content.Substring(second.Captures[0].Index + second.Captures[0].Length);
             }
+
+            frontMatter.Slug = slug;
+
             return new ContentPage
             {
-                Slug = slug,
-                Attributes = attributes,
+                FrontMatter = frontMatter,
                 Content = content
             };
         }
+    }
 
-        public static IReadOnlyDictionary<string, string> ParseAttributes(string info)
-        {
-            return info
-              .Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries)
-              .Select(x => x.Split(new[] { ':' }, 2))
-              .ToDictionary(x => x[0].Trim(), x => x[1].Trim());
-        }
+    public class FrontMatter
+    {
+        public string Layout { get; set; }
+        public string Title { get; set; }
+        public string Permalink { get; set; }
+        public bool Published { get; set; }
+
+        public DateTime Date { get; set; }      
+        public string Category { get; set; }   
+        public List<string> Categories { get; set; }
+        public List<string> Tags { get; set; }
+
+        public string Author { get; set; }
+        public string Image { get; set; }
+        public string Slug { get; set; }
     }
 }
