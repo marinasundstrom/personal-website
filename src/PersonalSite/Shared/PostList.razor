@@ -1,0 +1,21 @@
+﻿@using BlogEngine.Content
+
+@if (Posts?.Count() > 0)
+{
+    <CardList Items="@Posts" Context="post">
+        <ItemTemplate>
+            <PostPreview Post="@post"></PostPreview>
+        </ItemTemplate>
+    </CardList>
+}
+else
+{
+    <Card>
+        <h2>No posts :(</h2>
+    </Card>
+}
+
+@functions {
+    [Parameter]
+    private IEnumerable<Page> Posts { get; set; }
+}

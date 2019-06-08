@@ -1,0 +1,49 @@
+﻿@page "/"
+@using BlogEngine
+@using BlogEngine.Content
+@using BlogEngine.Configuration
+@using PersonalSite.Extensions
+@using W3.UI.Components
+@inject IConfigurationManager ConfigurationManager
+@inject Browser Browser
+@inject Site Site
+
+@if (isLoading)
+{
+    <Card>
+        <Loader></Loader>
+    </Card>
+}
+else
+{
+    <PostList Posts="@Site.Posts"></PostList>
+
+    @if (Site.Posts?.Count() > 6)
+    {
+        <div style="margin-top: 20px;">
+            <Pagination PageCount="10" WindowIndex="0"></Pagination>
+        </div>
+    }
+}
+
+@functions {
+    bool isLoading = false;
+
+    protected override async Task OnInitAsync()
+    {
+        await base.OnInitAsync();
+
+        if(Site.Pages == null) 
+        {
+            isLoading = true;
+
+            await ConfigurationManager.LoadConfigurationAsync();
+
+            await Browser.SetDocumentTitleAsync(ConfigurationManager.Configuration.GetValue<string>("Title"));
+
+            await Site.InitializeAsync();
+
+            isLoading = false;
+        }
+    }
+}

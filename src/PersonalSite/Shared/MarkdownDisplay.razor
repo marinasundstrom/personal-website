@@ -1,0 +1,22 @@
+﻿@using BlogEngine.Content.Providers
+@using PersonalSite.Markdown
+@using BlogEngine.Configuration
+@inject IConfigurationManager ConfigurationManager
+@inject IGitHubClient GitHubClient
+
+<MarkdownView Content="@content"></MarkdownView>
+
+@functions
+{
+    string content;
+
+    [Parameter]
+    string ContentUrl { get; set; }
+
+    protected override async Task OnInitAsync()
+    {
+        await ConfigurationManager.LoadConfigurationAsync();
+        content = await GitHubClient.GetRawContentAsync(ContentUrl);
+        await base.OnInitAsync();
+    }
+}
