@@ -1,6 +1,6 @@
 ﻿@using BlogEngine.Content
 
-<h1><a href="@GetUrlFromFullSlug(Post.Id)">@Post.Title</a></h1>
+<h1><a href="@Post.Id">@Post.Title</a></h1>
 <h5>@Post.Date.ToLocalTime().ToShortDateString()</h5>
 @if (Post.Image != null)
 {
@@ -8,15 +8,9 @@
 }
 <MarkdownView Truncate="true" Content="@Post.Content"></MarkdownView>
 
-<a class="btn gray" href="@GetUrlFromFullSlug(Post.Id)">Read more</a>
+<a class="btn gray" href="@Post.Id">Read more</a>
 
 @functions {
     [Parameter]
     private Page Post { get; set; }
-
-    static string GetUrlFromFullSlug(string path)
-    {
-        var parts = path.Split('-');
-        return $"{parts[0]}/{parts[1].ToString().PadLeft(2, '0')}/{parts[2].ToString().PadLeft(2, '0')}/{string.Join("-", parts.Skip(3))}";
-    }
 }

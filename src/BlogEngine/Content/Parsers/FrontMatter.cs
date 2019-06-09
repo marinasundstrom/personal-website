@@ -10,7 +10,7 @@ namespace BlogEngine.Content.Parsers
         public string Permalink { get; set; }
         public bool Published { get; set; }
 
-        public DateTime Date { get; set; }      
+        public DateTime? Date { get; set; }      
         public string Category { get; set; }   
         public List<string> Categories { get; set; }
         public List<string> Tags { get; set; }

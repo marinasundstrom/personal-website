@@ -12,7 +12,7 @@ namespace BlogEngine.Content.Parsers
     {
         private readonly FrontMatterParser frontMatterParser;
 
-        public PageParser(FrontMatterParser FrontMatterParser) 
+        public PageParser(FrontMatterParser FrontMatterParser)
         {
             frontMatterParser = FrontMatterParser;
         }
@@ -20,10 +20,10 @@ namespace BlogEngine.Content.Parsers
         public async Task<Page> ParseAsync(ContentInfo contentInfo)
         {
             using (StreamReader streamReader = new StreamReader(contentInfo.Content))
-            {   
+            {
                 string content = null;
                 FrontMatter frontMatter = null;
-                
+
                 content = await streamReader.ReadToEndAsync();
 
                 MatchCollection matches = Regex.Matches(content, "^---+$", RegexOptions.Multiline);
@@ -47,19 +47,31 @@ namespace BlogEngine.Content.Parsers
 
         private Page BuildPage(ContentInfo contentInfo, string content, FrontMatter frontMatter)
         {
+            var nameParts = FileNameUtils.ExtractParts(contentInfo.Name);
+
             var page = new Page();
-            if(frontMatter != null) 
+
+            page.Id = FileNameUtils.ConvertFileNameToUrl(contentInfo.Name);
+
+            page.Title = nameParts.fileName.Replace(".md", "");
+            page.Date = nameParts.date;
+
+            page.Name = contentInfo.Name;
+            page.Path = contentInfo.Path;
+            page.Dir = contentInfo.Dir;
+
+            page.Content = content;
+
+            if (frontMatter != null)
             {
-                page.Id = Path.GetFileNameWithoutExtension(contentInfo.Path);
-                page.Title = frontMatter.Title;
-                page.Date = frontMatter.Date;
-
-                page.Content = content;
-                page.Name = contentInfo.Name;
-                page.Path = contentInfo.Path;
-                page.Dir = contentInfo.Dir;
-
-                page.Content = content;
+                if(frontMatter.Title != null) 
+                {
+                    page.Title = frontMatter.Title;
+                }
+                if(frontMatter.Date != null) 
+                {
+                    page.Date = frontMatter.Date.GetValueOrDefault();
+                }
             }
             return page;
         }
