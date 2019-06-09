@@ -2,6 +2,7 @@
     setDocumentTitle(value: string): void;
     topFunction(): void;
     initHighlight(): void;
+    openInNewTab(href: string): void;
 }
 
 let hljs: any;
@@ -32,4 +33,11 @@ window.initHighlight = () => {
         hljs.highlightBlock(element);
         hljs.lineNumbersBlock(element);
     }
+};
+
+window.openInNewTab = (href) => {
+    Object.assign(document.createElement('a'), {
+        target: '_blank',
+        href,
+    }).click();
 };

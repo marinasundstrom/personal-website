@@ -9,7 +9,6 @@
 @inject Browser Browser
 @inject Site Site
 @inject IGitHubClient GitHubClient
-@inject IUriHelper UriHelper
 
 <Modal IsVisible="@revisionsVisible">
     <span class="close" style="float: right; cursor: pointer; font-size: 30px" onclick="@OnRevisionsCloseClick">&times;</span>
@@ -108,9 +107,9 @@ else
         revisionsVisible = false;
     }
 
-    private void OnRevisionClick(CommitDto commitDto)
+    private async Task OnRevisionClick(CommitDto commitDto)
     {
-        UriHelper.NavigateTo(commitDto.HtmlUrl.ToString());
+        await Browser.OpenInNewTab(commitDto.HtmlUrl);
     }
 
     protected async override Task OnAfterRenderAsync()

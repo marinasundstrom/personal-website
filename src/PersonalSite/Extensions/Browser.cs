@@ -25,5 +25,10 @@ namespace PersonalSite.Extensions
         {
             return jSRuntime.InvokeAsync<object>("topFunction");
         }
+
+        public Task OpenInNewTab(Uri uri)
+        {
+            return jSRuntime.InvokeAsync<object>("openInNewTab", uri.ToString());
+        }
     }
 }

@@ -22,4 +22,10 @@ window.initHighlight = function () {
         hljs.lineNumbersBlock(element);
     }
 };
+window.openInNewTab = function (href) {
+    Object.assign(document.createElement('a'), {
+        target: '_blank',
+        href: href
+    }).click();
+};
 //# sourceMappingURL=interop.js.map
