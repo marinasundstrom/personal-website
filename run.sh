@@ -1,1 +1,5 @@
-dotnet run --project "/Users/robert/Projects/PersonalSite/src/PersonalSite/PersonalSite.csproj" -c Release
+pushd "src/PersonalSite"
+dotnet build --project "src/PersonalSite/PersonalSite.csproj" -c Release
+rm -rf "bin/Debug"
+dotnet run --project "src/PersonalSite/PersonalSite.csproj" -c Release
+popd
