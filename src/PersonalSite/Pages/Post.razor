@@ -28,7 +28,7 @@
                 {
                     <tr style="cursor: pointer;" onclick="@(() => OnRevisionClick(commit))">
                         <td>@commit.Sha.Substring(0, 4)</td>
-                        <td>@commit.Commit.Author.Date.ToShortDateString()</td>
+                        <td>@commit.Commit.Author.Date.ToLongDateString()</td>
                         <td>@commit.Commit.Author.Name</td>
                         <td>@commit.Commit.Message</td>
                     </tr>
@@ -58,7 +58,7 @@ else
 
     <br />
 
-    <a class="btn" onclick="@ShowRevisions">Show revisions</a>
+    <button class="btn" onclick="@ShowRevisions">Show revisions</button>
 </Card>
 }
 
