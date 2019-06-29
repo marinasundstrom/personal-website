@@ -259,4 +259,8 @@ code {
   text-decoration: none;
 }
 
+.navbar .dropdown .active {
+  color: gray !important;
+}
+
 /*# sourceMappingURL=site.css.map */

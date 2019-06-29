@@ -296,3 +296,11 @@ code {
 .btn  {
     text-decoration: none;
 }
+
+.navbar {
+    .dropdown {
+        .active {
+            color: gray !important;
+        }
+    }
+}
