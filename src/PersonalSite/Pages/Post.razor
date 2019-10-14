@@ -11,7 +11,7 @@
 @inject IGitHubClient GitHubClient
 
 <Modal IsVisible="@revisionsVisible">
-    <span class="close" style="float: right; cursor: pointer; font-size: 30px" onclick="@OnRevisionsCloseClick">&times;</span>
+    <span class="close" style="float: right; cursor: pointer; font-size: 30px" @onclick=OnRevisionsCloseClick>&times;</span>
     <h2>Revisions</h2>
 
     <table class="table hover striped">
@@ -26,7 +26,7 @@
          <tbody>
                 @foreach (var commit in Commits)
                 {
-                    <tr style="cursor: pointer;" onclick="@(() => OnRevisionClick(commit))">
+                    <tr style="cursor: pointer;" @onclick="@(() => OnRevisionClick(commit))">
                         <td>@commit.Sha.Substring(0, 4)</td>
                         <td>@commit.Commit.Author.Date.ToLongDateString()</td>
                         <td>@commit.Commit.Author.Name</td>
@@ -58,7 +58,7 @@ else
 
     <br />
 
-    <button class="btn" onclick="@ShowRevisions">Show revisions</button>
+    <button class="btn" @onclick="ShowRevisions">Show revisions</button>
 </Card>
 }
 
@@ -68,23 +68,23 @@ else
     bool revisionsVisible = false;
 
     [Parameter]
-    private int? Year { get; set; }
+    public int? Year { get; set; }
 
     [Parameter]
-    private int? Month { get; set; }
+    public int? Month { get; set; }
 
     [Parameter]
-    private int? Day { get; set; }
+    public int? Day { get; set; }
 
     [Parameter]
-    private string Slug { get; set; }
+    public string Slug { get; set; }
 
     [Parameter]
-    private IEnumerable<CommitDto> Commits { get; set; }
+    public IEnumerable<CommitDto> Commits { get; set; }
 
-    protected override async Task OnInitAsync()
+    protected override async Task OnInitializedAsync()
     {
-        await base.OnInitAsync();
+        await base.OnInitializedAsync();
 
         post = await Site.GetPostAsync($"{Year}-{Month.ToString().PadLeft(2, '0')}-{Day.ToString().PadLeft(2, '0')}-{Slug}");
 
@@ -102,7 +102,7 @@ else
         revisionsVisible = true;
     }
 
-    private void OnRevisionsCloseClick(UIMouseEventArgs ev)
+    private void OnRevisionsCloseClick(MouseEventArgs ev)
     {
         revisionsVisible = false;
     }
@@ -112,9 +112,9 @@ else
         await Browser.OpenInNewTab(commitDto.HtmlUrl);
     }
 
-    protected async override Task OnAfterRenderAsync()
+    protected async override Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnAfterRenderAsync();
+        await base.OnAfterRenderAsync(firstRender);
         await Browser.TopFunction();
     }
 }

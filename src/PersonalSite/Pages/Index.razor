@@ -29,9 +29,9 @@ else
 @functions {
     bool isLoading = false;
 
-    protected override async Task OnInitAsync()
+    protected override async Task OnInitializedAsync()
     {
-        await base.OnInitAsync();
+        await base.OnInitializedAsync();
 
         if(Site.Pages == null) 
         {
@@ -47,9 +47,8 @@ else
         }
     }
 
-    protected async override Task OnAfterRenderAsync()
+    protected async override Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnAfterRenderAsync();
         await Browser.TopFunction();
     }
 }

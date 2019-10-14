@@ -1,10 +1,11 @@
 @inherits LayoutComponentBase
 @using BlogEngine.Configuration
 @using BlogEngine.Content
+@using Microsoft.AspNetCore.Components.Routing
 @inject IConfigurationManager ConfigurationManager
 @inject PersonalSite.Extensions.Browser  Browser
 
-<button onclick="@OnScrollToTopClick" id="scrollTopButton" class="btn" title="Go to top"><i class="fa fa-arrow-up"></i></button>
+<button @onclick="OnScrollToTopClick" id="scrollTopButton" class="btn" title="Go to top"><i class="fa fa-arrow-up"></i></button>
 
 <NavBar>
     <NavLink href="" Match="NavLinkMatch.All"><i class="fa fa-home"></i> Home</NavLink>
@@ -26,8 +27,13 @@
         </div>
         <div class="rightcolumn">
             <AboutMeCard></AboutMeCard>
+            <Card>
+                <a href="https://wwww.essiq.se/">
+                    <img src="images/essiq-logo.png" style="width: 100%; margin-top: 20px; ">
+                </a>
+            </Card>
             <SocialCard></SocialCard>
-            @*<PopularPostsCard></PopularPostsCard>*@
+
         </div>
     </div>
 </div>
@@ -44,16 +50,16 @@
     string title;
     string subtitle;
 
-    protected override async Task OnInitAsync()
+    protected override async Task OnInitializedAsync()
     {
         await ConfigurationManager.LoadConfigurationAsync();
         configuration = ConfigurationManager.Configuration;
         title = configuration.GetValue<string>("Title");
         subtitle = configuration.GetValue<string>("Subtitle");
-        await base.OnInitAsync();
+        await base.OnInitializedAsync();
     }
 
-    private void OnScrollToTopClick(UIMouseEventArgs ev)
+    private void OnScrollToTopClick(MouseEventArgs ev)
     {
         Browser.TopFunction();
     }

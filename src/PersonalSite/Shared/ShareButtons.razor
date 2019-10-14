@@ -1,4 +1,4 @@
-﻿@inject IUriHelper UriHelper
+﻿@inject NavigationManager NavigationManager
 
 
 <p>Share this post:</p>
@@ -13,13 +13,13 @@
     string url;
 
     [Parameter]
-    string Title { get; set; }
+    public string Title { get; set; }
 
     [Parameter]
-    string Summary { get; set; }
+    public string Summary { get; set; }
 
-    protected override void OnInit()
+    protected override void OnInitialized()
     {
-        url = UriHelper.GetAbsoluteUri();
+        url = NavigationManager.Uri;
     }
 }

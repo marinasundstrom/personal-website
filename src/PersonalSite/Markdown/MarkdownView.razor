@@ -5,9 +5,9 @@
 
 @functions
 {
-    protected async override Task OnAfterRenderAsync()
+    protected async override Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnAfterRenderAsync();
+        await base.OnAfterRenderAsync(firstRender);
         await Highlight.InitAsync();
     }
 }

@@ -11,12 +11,12 @@
     string content;
 
     [Parameter]
-    string ContentUrl { get; set; }
+    public string ContentUrl { get; set; }
 
-    protected override async Task OnInitAsync()
+    protected override async Task OnInitializedAsync()
     {
         await ConfigurationManager.LoadConfigurationAsync();
         content = await GitHubClient.GetRawContentAsync(ContentUrl);
-        await base.OnInitAsync();
+        await base.OnInitializedAsync();
     }
 }

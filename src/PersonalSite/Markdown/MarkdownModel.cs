@@ -11,7 +11,7 @@ namespace PersonalSite.Markdown
         [Inject] public IHtmlSanitizer HtmlSanitizer { get; set; }
 
         [Parameter]
-        protected string Content
+        public string Content
         {
             get => _content;
             set
@@ -22,7 +22,7 @@ namespace PersonalSite.Markdown
         }
 
         [Parameter]
-        public bool Truncate { get; private set; }
+        public bool Truncate { get; set; }
 
         public MarkupString HtmlContent { get; private set; }
 

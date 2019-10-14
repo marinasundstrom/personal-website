@@ -16,19 +16,19 @@ namespace PersonalSite.Extensions
             this.jSRuntime = jSRuntime;
         }
 
-        public Task SetDocumentTitleAsync(string value)
+        public async Task SetDocumentTitleAsync(string value)
         {
-            return jSRuntime.InvokeAsync<object>("setDocumentTitle", value);
+            await jSRuntime.InvokeAsync<object>("setDocumentTitle", value);
         }
 
-        public Task TopFunction()
+        public async Task TopFunction()
         {
-            return jSRuntime.InvokeAsync<object>("topFunction");
+            await jSRuntime.InvokeAsync<object>("topFunction");
         }
 
-        public Task OpenInNewTab(Uri uri)
+        public async Task OpenInNewTab(Uri uri)
         {
-            return jSRuntime.InvokeAsync<object>("openInNewTab", uri.ToString());
+            await jSRuntime.InvokeAsync<object>("openInNewTab", uri.ToString());
         }
     }
 }
