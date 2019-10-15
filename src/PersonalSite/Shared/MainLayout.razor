@@ -44,7 +44,7 @@
     </div>
 </div>
 
-@functions {
+@code {
     IConfiguration configuration;
     string title;
     string subtitle;
@@ -58,8 +58,8 @@
         await base.OnInitializedAsync();
     }
 
-    private void OnScrollToTopClick(MouseEventArgs ev)
+    private async Task OnScrollToTopClick(MouseEventArgs ev)
     {
-        Browser.TopFunction();
+        await Browser.TopFunction();
     }
 }
