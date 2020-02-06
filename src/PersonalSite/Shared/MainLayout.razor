@@ -7,15 +7,15 @@
 
 <button @onclick="OnScrollToTopClick" id="scrollTopButton" class="btn" title="Go to top"><i class="fa fa-arrow-up"></i></button>
 
-<NavBar>
-    <NavLink href="" Match="NavLinkMatch.All"><i class="fa fa-home"></i> Home</NavLink>
-    <DropButton Text="Blazor Samples">
-        <NavLink href="counter">Counter</NavLink>
-        <NavLink href="fetchdata">Fetch Data</NavLink>
-    </DropButton>
-</NavBar>
-
 <div class="header">
+    <NavBar>
+        <NavLink href="" Match="NavLinkMatch.All"><i class="fa fa-home"></i> Home</NavLink>
+        <DropButton Text="Blazor Samples">
+            <NavLink href="counter">Counter</NavLink>
+            <NavLink href="fetchdata">Fetch Data</NavLink>
+        </DropButton>
+    </NavBar>
+
     <a href="/"><h1>@title</h1></a>
     <p>@subtitle</p>
 </div>

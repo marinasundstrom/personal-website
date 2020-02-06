@@ -5,7 +5,6 @@
     <RootNamespace>WebAssembly</RootNamespace>
     <SignAssembly>true</SignAssembly>
     <Version>$(BindingsVersion)</Version>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
