@@ -126,4 +126,14 @@ h1 > b > a:hover {
   color: #bb0000;
 }
 
+.w3-card-4 h1 {
+  font-size: 24px;
+}
+.w3-card-4 h2 {
+  font-size: 19px;
+}
+.w3-card-4 h3 {
+  font-size: 16px;
+}
+
 /*# sourceMappingURL=site.css.map */
