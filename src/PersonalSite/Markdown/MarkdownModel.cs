@@ -31,7 +31,10 @@ namespace PersonalSite.Markdown
             if (!string.IsNullOrWhiteSpace(_content))
             {
                 // Convert markdown string to HTML
-                var html = Markdig.Markdown.ToHtml(value, new MarkdownPipelineBuilder().UseAdvancedExtensions().Build());
+                var html = Markdig.Markdown.ToHtml(value, 
+                    new MarkdownPipelineBuilder()
+                        .UseAdvancedExtensions()
+                        .Build());
 
                 // Sanitize HTML before rendering
                 var sanitizedHtml = HtmlSanitizer.Sanitize(html);

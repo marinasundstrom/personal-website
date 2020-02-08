@@ -1,0 +1,19 @@
+@inject HttpClient HttpClient
+
+<a class="w3-button w3-padding-large w3-right" target="blank" rel="noopener noreferrer" href="@($"https://www.linkedin.com/shareArticle?mini=true&url={Uri.EscapeDataString(Url)}&title={Uri.EscapeDataString(Title)}&summary={Uri.EscapeDataString(Summary)}&source={Uri.EscapeDataString(Title)}")">
+    <i class="fab fa-linkedin"></i> Share
+</a>
+
+@code {
+    [Parameter]
+    public string Url { get; set; }
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string Summary { get; set; }
+
+    [Parameter]
+    public string Source { get; set; } 
+}

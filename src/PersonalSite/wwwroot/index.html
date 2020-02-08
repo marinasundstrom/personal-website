@@ -11,28 +11,31 @@
     <title>Robert Sundström</title>
 
     <base href="/" />
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <style>
+        body,h1,h2,h3,h4,h5 {
+            font-family: "Raleway", sans-serif;
+            font-weight: normal !important;
+        }
+    </style>
+
     <link href="css/site.css" rel="stylesheet" />
-    <link href="_content/W3.UI/css/W3.UI.css" rel="stylesheet" />
-    
-    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/vs.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.7.0/highlightjs-line-numbers.min.js"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-165376-5"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'UA-165376-5');
-    </script>
 </head>
-<body>
-    <app><div id="loader" class="loader"></div></app>
+<body class="w3-light-grey">
+    <app>
+      <div class="w3-display-container">
+        <div id="loader" class="loader w3-display-middle"</div>
+      </div>
+    </app>
 
     <script src="_framework/blazor.webassembly.js"></script>
-    <script src="/js/interop.js"></script>
+    <script src="/js/scripts.js"></script>
 </body>
 </html>

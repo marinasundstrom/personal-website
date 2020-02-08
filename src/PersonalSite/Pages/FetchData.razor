@@ -1,8 +1,12 @@
 ﻿@page "/fetchdata"
+@using BlogEngine.Configuration
+@inject IConfigurationManager ConfigurationManager
 @inject HttpClient Http
 
-<div class="card">
+<Title>Fetch Data - @(ConfigurationManager.Configuration.GetValue<string>("Title"))</Title>
 
+<div class="w3-card-4 w3-margin w3-white">
+    <div class="w3-container">
     <h1>Weather forecast</h1>
 
     <p>This component demonstrates fetching data from the server.</p>
@@ -13,7 +17,7 @@
     }
     else
     {
-        <table class="table striped">
+        <table class="w3-table w3-striped w3-border">
             <thead>
                 <tr>
                     <th>Date</th>
@@ -34,8 +38,9 @@
                 }
             </tbody>
         </table>
+        <p></p>
     }
-
+    </div>
 </div>
 
 @code {

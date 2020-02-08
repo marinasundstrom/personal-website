@@ -1,0 +1,13 @@
+@inject DisqusService DisqusService
+
+<span class="disqus-comment-count" data-disqus-url="@Url">#</span>
+
+@code {
+    [Parameter]
+    public string Url { get; set; }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await DisqusService.InitCountAsync(Url);
+    }
+}

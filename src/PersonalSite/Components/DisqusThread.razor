@@ -1,0 +1,13 @@
+@inject DisqusService DisqusService
+
+<div id="disqus_thread"></div>
+
+@code {
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender) 
+        {
+            await DisqusService.InitThreadAsync();
+        }
+    }
+}

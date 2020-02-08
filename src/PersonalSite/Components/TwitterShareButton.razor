@@ -1,0 +1,16 @@
+@inject HttpClient HttpClient
+
+<a class="w3-button w3-padding-large w3-right" target="blank" rel="noopener noreferrer" href="@($"https://twitter.com/intent/tweet?url={Uri.EscapeDataString(Url)}&text={Uri.EscapeDataString(Text)}&hashtags={Uri.EscapeDataString(string.Join(",", Hashtags))}")">
+    <i class="fab fa-twitter"></i> Tweet
+</a>
+
+@code {
+    [Parameter]
+    public string Url { get; set; }
+
+    [Parameter]
+    public string Text { get; set; }
+
+    [Parameter]
+    public IEnumerable<string> Hashtags { get; set; } = Array.Empty<string>();
+}

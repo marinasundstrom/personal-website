@@ -1,71 +1,96 @@
 ﻿@page "/{year:int}/{month:int}/{day:int}/{slug}"
 
+@inherits FragmentNavigationBase
+
 @using BlogEngine
 @using BlogEngine.Configuration
 @using BlogEngine.Content
 @using BlogEngine.Content.Providers
 @using PersonalSite.Extensions
+@using PersonalSite.Markdown
+@inject NavigationManager NavigationManager
 @inject IConfigurationManager ConfigurationManager
 @inject Browser Browser
 @inject Site Site
 @inject IGitHubClient GitHubClient
+@inject DisqusService DisqusService
 
-<Modal IsVisible="@revisionsVisible">
-    <span class="close" style="float: right; cursor: pointer; font-size: 30px" @onclick=OnRevisionsCloseClick>&times;</span>
-    <h2>Revisions</h2>
-
-    <table class="table hover striped">
-        <thead>
-            <tr>
-                <th>SHA</th>
-                <th>Date</th>
-                <th>Author</th>
-                <th>Message</th>
-            </tr>
-        </thead>
-         <tbody>
-                @foreach (var commit in Commits)
-                {
-                    <tr style="cursor: pointer;" @onclick="@(() => OnRevisionClick(commit))">
-                        <td>@commit.Sha.Substring(0, 4)</td>
-                        <td>@commit.Commit.Author.Date.ToLongDateString()</td>
-                        <td>@commit.Commit.Author.Name</td>
-                        <td>@commit.Commit.Message</td>
-                    </tr>
-                }
-        </tbody>
-    </table>
+   @if (post != null)
+    {
+      <Title>@post.Title - @(ConfigurationManager.Configuration.GetValue<string>("Title"))</Title>
+    }
+<Modal @ref="commitModal">
+      <header class="w3-container w3-dark-gray"> 
+        <span @onclick="commitModal.Close" class="w3-button w3-display-topright">&times;</span>
+        <h2>Revisions</h2>
+      </header>
+      <div class="w3-container" style="padding: 0">
+            <Table TItem="BlogEngine.Content.Providers.CommitDto" Items="Commits.ToList().AsReadOnly()" OnRowClicked="@((commit) => OnRevisionClick(commit))">
+                <TableHeader>
+                            <th>SHA</th>
+                            <th>Date</th>
+                            <th>Author</th>
+                            <th>Message</th>
+                </TableHeader>
+                <RowTemplate Context="commit">
+                                    <td>@commit.Sha.Substring(0, 4)</td>
+                                    <td>@commit.Commit.Author.Date.ToLongDateString()</td>
+                                    <td>@commit.Commit.Author.Name</td>
+                                    <td>@commit.Commit.Message</td>
+                </RowTemplate>
+            </Table>
+      </div>
+      <footer class="w3-container w3-dark-gray">
+          <p></p>
+      </footer>
 </Modal>
 
-@if (isLoading)
+@if (post == null)
 {
-<Card>
-    <Loader></Loader>
-</Card>
+    <div class="w3-card-4 w3-margin w3-white w3-display-container" style="height:300px;">
+      <PostContentPlaceholder></PostContentPlaceholder>
+    </div>
 }
 else
 {
-<Card>
-    <h1>@post.Title</h1>
-    <h5>@post.Date.ToLocalTime().ToShortDateString()</h5>
-    @if (post.Image != null)
+<div class="w3-card-4 w3-margin w3-white">
+     @if (post.Image != null)
     {
-        <img class="fakeimg" style="height:200px;" src="@post.Image">
+    <img src="/w3images/bridge.jpg" alt="Norway" style="width:100%">
     }
-    <MarkdownView Content="@post.Content"></MarkdownView>
+      <div class="w3-container">
+        <h1><b>@post.Title</b></h1>
+        <h5>Title description, <span class="w3-opacity">@post.Date.ToLocalTime().ToShortDateString()</span></h5>
+      </div>
 
-    <ShareButtons Title="@post.Title" Summary=""></ShareButtons>
+      <div class="w3-container">
+          <MarkdownView Content="@post.Content"></MarkdownView>
 
-    <br />
+          <div class="w3-col w3-hide-small">
+            <p><span class="W3-padding-large w3-left">          
+              <TwitterShareButton 
+                Url="@NavigationManager.Uri" 
+                Text="@post.Title">
+              </TwitterShareButton>
+              <LinkedInShareButton 
+                Url="@NavigationManager.Uri" 
+                Title="@post.Title" 
+                Summary="@post.Content.StripTags().TruncateHtml(150)" 
+                Source="@post.Title" >
+              </LinkedInShareButton>
+            </span></p>
+            <p><span class="w3-padding-large w3-right"><b>Comments &nbsp;</b> <span class="w3-badge"><DisqusCount Url="@NavigationManager.Uri"></DisqusCount></span></span></p>
+            <p><span class="w3-button w3-padding-large w3-right " @onclick="ShowRevisions"><i class="fa fa-history"></i> <b>Revisions</b></span></p>
+          </div>
+      </div>
 
-    <button class="btn default" @onclick="ShowRevisions">Show revisions</button>
-</Card>
+      <DisqusThread></DisqusThread>
+</div>
 }
 
 @code {
+    Modal commitModal;
     Page post = null;
-    bool isLoading = true;
-    bool revisionsVisible = false;
 
     [Parameter]
     public int? Year { get; set; }
@@ -84,27 +109,18 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await base.OnInitializedAsync();
-
         post = await Site.GetPostAsync($"{Year}-{Month.ToString().PadLeft(2, '0')}-{Day.ToString().PadLeft(2, '0')}-{Slug}");
-
-        await ConfigurationManager.LoadConfigurationAsync();
-        var configuration = ConfigurationManager.Configuration;
-
-        await Browser.SetDocumentTitleAsync($"{post.Title} - {configuration.GetValue<string>("Title")}");
-
-        isLoading = false;
     }
 
     async Task ShowRevisions() 
     {
         Commits = await GitHubClient.GetCommitsAsync(post.Path);
-        revisionsVisible = true;
+        commitModal.Open();
     }
 
     private void OnRevisionsCloseClick(MouseEventArgs ev)
     {
-        revisionsVisible = false;
+        commitModal.Close();
     }
 
     private async Task OnRevisionClick(CommitDto commitDto)
@@ -115,6 +131,7 @@ else
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
+        
         await Browser.TopFunction();
     }
 }

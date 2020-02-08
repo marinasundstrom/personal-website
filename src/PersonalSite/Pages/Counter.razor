@@ -1,15 +1,19 @@
 ﻿@page "/counter"
+@using BlogEngine.Configuration
+@inject IConfigurationManager ConfigurationManager
 
-<div class="card">
+<Title>Counter - @(ConfigurationManager.Configuration.GetValue<string>("Title"))</Title>
 
-    <h1>Counter</h1>
+<div class="w3-card-4 w3-margin w3-white">
+    <div class="w3-container">
+        <h1>Counter</h1>
 
-    <p>Current count: @currentCount</p>
+        <p>Current count: @currentCount</p>
 
-    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-
+        <button class="w3-button w3-border" @onclick="IncrementCount">Click me</button>
+        <p></p>
+    </div>
 </div>
-
 
 @code {
     int currentCount = 0;

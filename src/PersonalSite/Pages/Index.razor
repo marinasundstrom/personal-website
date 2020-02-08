@@ -3,31 +3,73 @@
 @using BlogEngine.Content
 @using BlogEngine.Configuration
 @using PersonalSite.Extensions
-@using W3.UI.Components
 @inject IConfigurationManager ConfigurationManager
 @inject Browser Browser
 @inject Site Site
 
+<Title>@(ConfigurationManager.Configuration.GetValue<string>("Title"))</Title>
+
 @if (isLoading)
 {
-    <Card>
-        <Loader></Loader>
-    </Card>
+    <div class="w3-card-4 w3-margin w3-white w3-display-container" style="height:460px;">
+        <PostContentPlaceholder />
+    </div>
+    
+    <div class="w3-card-4 w3-margin w3-white w3-display-container" style="height:460px;">
+        <PostContentPlaceholder />
+    </div>
+    
+    <div class="w3-card-4 w3-margin w3-white w3-display-container" style="height:460px;">
+        <PostContentPlaceholder />
+    </div>
 }
 else
 {
-    <PostList Posts="@Site.Posts"></PostList>
-
-    @if (Site.Posts?.Count() > 6)
+    @if(Site.Posts.Any()) 
     {
-        <div style="margin-top: 20px;">
-            <Pagination PageCount="10" WindowIndex="0"></Pagination>
+        @if(results != null) 
+        {
+            <PostList Posts="@results.Items"></PostList>
+
+            @if (Site.Posts?.Count() > numberOfObjectsPerPage)
+            {
+                <div class="w3-container" style="margin: 50px">
+                    <div class="w3-display-container">
+                        <div class="w3-display-middle">
+                            <Pagination Result="@results" OnPageChanged="OnPageChanged"></Pagination>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+    else
+    {
+        <div class="w3-card-4 w3-margin w3-white">
+            <h2>No posts :(</h2>
         </div>
     }
 }
 
 @code {
     bool isLoading = false;
+    PagedResult<Page> results = null;
+    int numberOfObjectsPerPage = 10;
+
+    private async Task OnPageChanged(int page) 
+    {
+        var result = Site.Posts
+            .Skip(numberOfObjectsPerPage * page)
+            .Take(numberOfObjectsPerPage);
+
+        results = new PagedResult<Page>() {
+            CurrentPage = page,
+            PageCount = System.Convert.ToInt32(System.Math.Ceiling(Site.Posts.Count() / System.Convert.ToDouble(numberOfObjectsPerPage))),
+            PageSize = numberOfObjectsPerPage,
+            Items = result,
+            RowCount = result.Count()
+        };
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -45,6 +87,18 @@ else
 
             isLoading = false;
         }
+
+        var result = Site.Posts
+            .Skip(numberOfObjectsPerPage * 0)
+            .Take(numberOfObjectsPerPage);
+            
+        results = new PagedResult<Page>() {
+            CurrentPage = 0,
+            PageCount = System.Convert.ToInt32(System.Math.Ceiling(Site.Posts.Count() / System.Convert.ToDouble(numberOfObjectsPerPage))),
+            PageSize = numberOfObjectsPerPage,
+            Items = result,
+            RowCount = result.Count()
+        };
     }
 
     protected async override Task OnAfterRenderAsync(bool firstRender)

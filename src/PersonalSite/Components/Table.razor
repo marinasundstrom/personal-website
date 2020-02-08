@@ -1,0 +1,33 @@
+@typeparam TItem
+
+<table class="w3-table w3-striped w3-hoverable">
+    <thead class="w3-light-grey">
+        <tr>@TableHeader</tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Items)
+        {
+            <tr @onclick="@(async () => await OnRowClicked.InvokeAsync(item))">@RowTemplate(item)</tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>@TableFooter</tr>
+    </tfoot>
+</table>
+
+@code {
+    [Parameter]
+    public RenderFragment TableHeader { get; set; }
+
+    [Parameter]
+    public RenderFragment<TItem> RowTemplate { get; set; }
+
+    [Parameter]
+    public RenderFragment TableFooter { get; set; }
+
+    [Parameter]
+    public IReadOnlyList<TItem> Items { get; set; }
+
+    [Parameter]
+    public EventCallback<TItem> OnRowClicked { get; set; }
+}

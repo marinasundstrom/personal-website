@@ -1,20 +1,26 @@
 ﻿@using BlogEngine.Content
+@inject NavigationManager NavigationManager
 
-<h1><a href="@Post.Id">@Post.Title</a></h1>
-<h5>@Post.Date.ToLocalTime().ToShortDateString()</h5>
-@if (Post.Image != null)
-{
-    <img class="fakeimg" style="height:200px;" src="@Post.Image">
-}
-<MarkdownView Truncate="true" Content="@Post.Content"></MarkdownView>
-
-<br />
-
-<a class="btn default" href="@Post.Id">Read more</a>
-
-<br />
-
-<br />
+ @if (Post.Image != null)
+    {
+    <img src="/w3images/bridge.jpg" alt="Norway" style="width:100%">
+    }
+      <div class="w3-container">
+        <h1><b><a href="@Post.Id">@Post.Title</a></b></h1>
+        <h5>Title description, <span class="w3-opacity">@Post.Date.ToLocalTime().ToShortDateString()</span></h5>
+      </div>
+      
+      <div class="w3-container">
+        <p><MarkdownView Truncate="true" Content="@Post.Content"></MarkdownView></p>
+        <div class="w3-row">
+          <div class="w3-col m8 s12">
+            <p><a class="w3-button w3-padding-large w3-white w3-border" href="@Post.Id"><b>READ MORE »</b></a></p>
+          </div>
+          <div class="w3-col m4 w3-hide-small">
+            <p><span class="w3-padding-large w3-right"><CommentCount Url="@(NavigationManager.BaseUri + Post.Id)"></CommentCount></span></p>
+          </div>
+        </div>
+      </div>
 
 @code {
     [Parameter]

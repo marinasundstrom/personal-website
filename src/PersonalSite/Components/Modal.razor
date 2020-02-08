@@ -1,0 +1,26 @@
+  @if(IsVisible) 
+  {
+  <div id="id01" class="w3-modal" style="display: block;">
+    <div class="w3-modal-content">
+        @ChildContent
+    </div>
+   </div>
+}
+
+  @code {
+      [Parameter]
+      public bool IsVisible { get; set; }
+
+      [Parameter]
+      public RenderFragment ChildContent { get; set; }
+
+      public void Open() 
+      {
+        IsVisible = true;
+      }
+
+      public void Close() 
+      {
+          IsVisible = false;
+      }
+  }

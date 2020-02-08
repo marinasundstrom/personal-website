@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazor-Analytics" Version="3.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.2.0-preview1.20073.1" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="3.2.0-preview1.20073.1" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.2.0-preview1.20073.1" />
@@ -25,10 +26,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="W3.UI" Version="0.1.0-build20200206-1353" />
     <PackageReference Include="HtmlSanitizer" Version="5.0.274-beta" />
     <PackageReference Include="Markdig" Version="0.18.1" />
     <PackageReference Include="SassTask" Version="0.1.0-*" />
+    <PackageReference Include="Toolbelt.Blazor.HeadElement" Version="1.1.0.1" />
+    <PackageReference Include="Toolbelt.Blazor.LoadingBar" Version="10.0.0" />
+    <PackageReference Include="Toolbelt.Blazor.TwitterShareButton" Version="7.0.0.31" />
     <PackageReference Include="YamlDotNet" Version="8.1.0" />
   </ItemGroup>
 

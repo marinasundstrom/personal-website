@@ -1,0 +1,51 @@
+@typeparam TItem
+
+@if (Result.PageCount > 1)
+{
+    <div class="w3-bar">
+        @if(Result.CurrentPage != 0) 
+        {
+            <a class="w3-button" @onclick="@(() => PagerButtonClicked(0))">&laquo;</a>
+        }
+        @for (var i = StartIndex; i <= FinishIndex; i++)
+        {
+            var currentIndex = i;
+            @if (i == Result.CurrentPage)
+            {
+                <a class="w3-button w3-black">@(i + 1)</a>
+            }
+            else
+            {
+                <a class="w3-button" @onclick="@(() => PagerButtonClicked(currentIndex))">@(i + 1)</a>
+            }
+        }
+        @if(Result.CurrentPage != Result.PageCount - 1) 
+        {
+            <a class="w3-button" @onclick="@(() => PagerButtonClicked(Result.PageCount - 1))">&raquo;</a>
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public PagedResult<TItem> Result { get; set; }
+
+    [Parameter]
+    public EventCallback<int> OnPageChanged { get; set; }
+
+    public int StartIndex { get; private set; } = 0;
+    public int FinishIndex { get; private set; } = 0;
+
+    protected override void OnParametersSet()
+    {
+        StartIndex = Math.Max(Result.CurrentPage - 5, 1) - 1;
+        FinishIndex = Math.Min(Result.CurrentPage + 5, Result.PageCount) - 1;
+
+        base.OnParametersSet();
+    }
+
+    protected void PagerButtonClicked(int page)
+    {
+        OnPageChanged.InvokeAsync(page);
+    }
+}
