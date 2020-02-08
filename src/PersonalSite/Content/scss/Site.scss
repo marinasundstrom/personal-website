@@ -1,4 +1,8 @@
-﻿code {
+﻿body {
+    font-family: Muli, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+}
+
+code {
     font-family: 'Cascadia Code' !important;
     src: url(/fonts/Cascadia.ttf);
     font-size: 12px !important;
@@ -23,6 +27,15 @@
   
   .btn {
     text-decoration: none;
+  }
+
+
+#loader {
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    position: absolute;
+    margin: -75px 0 0 -75px;
   }
 
 .loader {
@@ -78,4 +91,39 @@ h1>b>a:hover {
 
 #disqus_thread {
     margin: 16px;
+}
+
+.social {
+    .fab {
+        padding-right: 12px;
+        margin: 5px;
+    }
+
+    .fab:hover {
+        opacity: 0.7;
+    }
+
+    a {
+        text-decoration: none !important;
+    }
+}
+
+.fa-facebook {
+    color: #3B5998;
+}
+
+.fa-twitter {
+    color: #55ACEE;
+}
+
+.fa-linkedin {
+    color: #007bb5;
+}
+
+.fa-instagram {
+    color: #125688;
+}
+
+.fa-youtube {
+    color: #bb0000;
 }
