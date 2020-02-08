@@ -43,7 +43,7 @@ window.disqus = {
         var d = document, s = d.createElement('script');
         s.id = "dsq-count-scr";
         s.src = `https://${config.site}.disqus.com/count.js`;
-        s.async = true;
+        //s.async = false;
         d.body.appendChild(s);
 
         if (typeof DISQUSWIDGETS != "undefined") {
