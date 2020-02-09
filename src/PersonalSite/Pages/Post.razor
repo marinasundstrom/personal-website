@@ -76,7 +76,7 @@ else
                 Url="@NavigationManager.Uri" 
                 Title="@post.Title" 
                 Summary="@post.Content.StripTags().TruncateHtml(150)" 
-                Source="@post.Title" >
+                Source="@Site.Title" >
               </LinkedInShareButton>
             </span></p>
             <p><span class="w3-padding-large w3-right"><b>Comments &nbsp;</b> <span class="w3-badge"><DisqusCount Url="@NavigationManager.Uri"></DisqusCount></span></span></p>
