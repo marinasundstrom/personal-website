@@ -53,10 +53,10 @@ else
 
 @code {
     bool isLoading = false;
-    PagedResult<Page> results = null;
+    PagedResult<Page>? results = null;
     int numberOfObjectsPerPage = 10;
 
-    private async Task OnPageChanged(int page) 
+    private void OnPageChanged(int page) 
     {
         var result = Site.Posts
             .Skip(numberOfObjectsPerPage * page)
