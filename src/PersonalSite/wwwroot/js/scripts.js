@@ -14,7 +14,8 @@ window.disqus = {
         var d = document;
         var dsqThread = document.getElementById("dsq-thread");
         if (dsqThread) {
-            (d.head || d.body).removeChild(dsqThread);
+            DISQUS.reset();
+            return;
         }
         var d = document, s = d.createElement('script');
         s.id = "dsq-thread";
