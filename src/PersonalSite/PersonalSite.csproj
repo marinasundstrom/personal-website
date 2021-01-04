@@ -26,7 +26,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="HtmlSanitizer" Version="5.0.274-beta" />
+    <PackageReference Include="HtmlSanitizer" Version="5.0.372" />
     <PackageReference Include="Markdig" Version="0.18.1" />
     <PackageReference Include="SassTask" Version="0.1.0-*" />
     <PackageReference Include="Toolbelt.Blazor.HeadElement" Version="1.1.0.1" />
